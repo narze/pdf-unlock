@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Remove password protection from PDF files (given the correct password) using qpdf, with automatic backups.",
   "bin": {
-    "pdf-unlock": "./bin/pdf-unlock.js"
+    "pdf-unlock": "bin/pdf-unlock.js"
   },
   "main": "src/index.js",
   "scripts": {
