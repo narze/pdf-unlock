@@ -8,7 +8,8 @@
   "main": "src/index.js",
   "files": [
     "bin",
-    "src"
+    "src",
+    "skills"
   ],
   "repository": {
     "type": "git",
