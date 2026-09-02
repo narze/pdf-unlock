@@ -6,6 +6,18 @@
     "pdf-unlock": "bin/pdf-unlock.js"
   },
   "main": "src/index.js",
+  "files": [
+    "bin",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narze/pdf-unlock.git"
+  },
+  "homepage": "https://github.com/narze/pdf-unlock#readme",
+  "bugs": {
+    "url": "https://github.com/narze/pdf-unlock/issues"
+  },
   "scripts": {
     "test": "node --test \"test/**/*.test.js\""
   },
