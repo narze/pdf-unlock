@@ -1,0 +1,24 @@
+{
+  "name": "pdf-unlock",
+  "version": "1.0.0",
+  "description": "Remove password protection from PDF files (given the correct password) using qpdf, with automatic backups.",
+  "bin": {
+    "pdf-unlock": "./bin/pdf-unlock.js"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "license": "MIT",
+  "keywords": [
+    "pdf",
+    "qpdf",
+    "decrypt",
+    "password",
+    "unlock"
+  ]
+}
