@@ -49,7 +49,7 @@ test('exits 1 when the target does not exist', async () => {
   const { code, stderr } = await runCli(['/definitely/not/here.pdf', '-p', PASSWORD]);
 
   assert.equal(code, 1);
-  assert.match(stderr, /ไม่พบไฟล์หรือโฟลเดอร์/);
+  assert.match(stderr, /File or folder not found/);
 });
 
 test('exits 0 with a notice when the folder holds no pdf', async (t) => {
@@ -59,7 +59,7 @@ test('exits 0 with a notice when the folder holds no pdf', async (t) => {
   const { code, stdout } = await runCli([dir, '-p', PASSWORD]);
 
   assert.equal(code, 0);
-  assert.match(stdout, /ไม่พบไฟล์ \.pdf/);
+  assert.match(stdout, /No \.pdf files/);
 });
 
 test('--dry-run lists the files and changes nothing', async (t) => {
@@ -184,7 +184,7 @@ test('exits 1 when an empty password is entered at the prompt', async (t) => {
   const { code, stderr } = await runCli([dir], { stdin: '\n' });
 
   assert.equal(code, 1);
-  assert.match(stderr, /ต้องระบุ password/);
+  assert.match(stderr, /password is required/);
   assert.equal(isEncrypted(file), true);
 });
 

@@ -30,18 +30,18 @@ function parseArgs(argv) {
 
 function printHelp() {
   console.log(`
-pdf-unlock - เอา password protection ออกจากไฟล์ PDF (ต้องรู้ password ที่ถูกต้อง)
+pdf-unlock - remove password protection from PDF files (you must know the correct password)
 
 Usage:
   npx pdf-unlock <file-or-folder> [options]
 
 Options:
-  -p, --password <pw>   password ของไฟล์ (ถ้าไม่ระบุจะถาม interactive)
-  -r, --recursive        ถ้า target เป็นโฟลเดอร์ ให้ค้นหาไฟล์ .pdf ในโฟลเดอร์ย่อยด้วย
-      --backup-dir <name>  ชื่อโฟลเดอร์ backup (default: "backup")
-      --no-backup        ไม่ต้อง backup ไฟล์ต้นฉบับ (ไม่แนะนำ)
-      --dry-run          แสดงรายการไฟล์ที่จะประมวลผล โดยไม่แก้ไขจริง
-  -h, --help             แสดงข้อความช่วยเหลือนี้
+  -p, --password <pw>   password of the files (asks interactively if not given)
+  -r, --recursive        if the target is a folder, also search .pdf files in subfolders
+      --backup-dir <name>  name of the backup folder (default: "backup")
+      --no-backup        do not back up the original files (not recommended)
+      --dry-run          list the files that would be processed, without changing them
+  -h, --help             show this help message
 
 Examples:
   npx pdf-unlock statement.pdf -p mypassword
@@ -73,21 +73,21 @@ async function main() {
       backupDirName: args.backupDir || 'backup',
     });
   } catch (err) {
-    console.error(`✖ ไม่พบไฟล์หรือโฟลเดอร์: ${target}`);
+    console.error(`✖ File or folder not found: ${target}`);
     console.error(err.message);
     process.exit(1);
   }
 
   if (files.length === 0) {
-    console.log('ไม่พบไฟล์ .pdf ให้ประมวลผล');
+    console.log('No .pdf files to process');
     process.exit(0);
   }
 
-  console.log(`พบไฟล์ PDF ${files.length} ไฟล์:`);
+  console.log(`Found ${files.length} PDF file(s):`);
   files.forEach((f) => console.log('  - ' + path.relative(process.cwd(), f)));
 
   if (args.dryRun) {
-    console.log('\n(dry-run: ไม่มีการแก้ไขไฟล์จริง)');
+    console.log('\n(dry-run: no files were changed)');
     process.exit(0);
   }
 
@@ -96,7 +96,7 @@ async function main() {
     password = await promptPassword('\nPassword: ');
   }
   if (!password) {
-    console.error('✖ ต้องระบุ password');
+    console.error('✖ A password is required');
     process.exit(1);
   }
 
@@ -126,18 +126,18 @@ async function main() {
     }
   }
 
-  console.log(`\nสำเร็จ ${okCount} ไฟล์, ล้มเหลว ${failCount} ไฟล์`);
+  console.log(`\nDone: ${okCount} file(s) succeeded, ${failCount} file(s) failed`);
   if (!args.noBackup) {
-    console.log(`(ไฟล์ต้นฉบับถูก backup ไว้ในโฟลเดอร์ "${args.backupDir || 'backup'}" ข้างไฟล์เดิมแล้ว)`);
+    console.log(`(the originals were backed up in the "${args.backupDir || 'backup'}" folder next to each file)`);
   }
   if (badPasswordSeen) {
-    console.log('หมายเหตุ: มีบางไฟล์ password ไม่ตรง อาจเป็นเพราะไฟล์เหล่านั้นใช้ password คนละตัว');
+    console.log('Note: the password did not match some files. They may use a different password.');
   }
 
   process.exit(failCount > 0 ? 1 : 0);
 }
 
 main().catch((err) => {
-  console.error('เกิดข้อผิดพลาดที่ไม่คาดคิด:', err);
+  console.error('Unexpected error:', err);
   process.exit(1);
 });

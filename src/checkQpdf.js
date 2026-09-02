@@ -11,8 +11,8 @@ function checkQpdf() {
 
 function printInstallInstructions() {
   const platform = process.platform;
-  console.error('\n✖ qpdf ไม่ได้ติดตั้งอยู่ในเครื่อง (หรือหาไม่เจอใน PATH)\n');
-  console.error('วิธีติดตั้ง qpdf:');
+  console.error('\n✖ qpdf is not installed on this machine (or was not found in PATH)\n');
+  console.error('How to install qpdf:');
   if (platform === 'darwin') {
     console.error('  macOS (Homebrew):  brew install qpdf');
   } else if (platform === 'linux') {
@@ -22,11 +22,11 @@ function printInstallInstructions() {
   } else if (platform === 'win32') {
     console.error('  Windows (choco):   choco install qpdf');
     console.error('  Windows (scoop):   scoop install qpdf');
-    console.error('  หรือดาวน์โหลดจาก: https://github.com/qpdf/qpdf/releases');
+    console.error('  or download it from: https://github.com/qpdf/qpdf/releases');
   } else {
-    console.error('  ดูวิธีติดตั้งได้ที่: https://github.com/qpdf/qpdf');
+    console.error('  see the install instructions at: https://github.com/qpdf/qpdf');
   }
-  console.error('\nติดตั้งเสร็จแล้วลองรันคำสั่งนี้ใหม่อีกครั้ง\n');
+  console.error('\nRun this command again after the installation is complete.\n');
 }
 
 module.exports = { checkQpdf, printInstallInstructions };

@@ -54,7 +54,7 @@ Four production files, CommonJS, no `require` outside Node builtins.
 - `test/helpers.js` - fixture builders. Not a test file, which is why the glob is `*.test.js` rather than everything under `test/`. `writePlainPdf` hand-writes a minimal PDF then runs it through `qpdf --warning-exit-0` to repair the xref table; `isEncrypted` asserts on `qpdf --show-encryption` output.
 - `test/collectPdfFiles.test.js` - discovery and backup-dir skipping. Uses cheap non-PDF stub files, since discovery never parses content.
 - `test/unlockFile.test.js` - the backup, temp-file and error-classification invariants.
-- `test/cli.test.js` - spawns `bin/pdf-unlock.js` as a real subprocess and asserts exit codes, stdout and the resulting files. This is the only coverage of arg parsing, the interactive prompt, and the Thai output strings, because `bin/` exports nothing.
+- `test/cli.test.js` - spawns `bin/pdf-unlock.js` as a real subprocess and asserts exit codes, stdout and the resulting files. This is the only coverage of arg parsing, the interactive prompt, and the output strings, because `bin/` exports nothing.
 - `test/checkQpdf.test.js` - runs child processes with `PATH=/nonexistent` to exercise the missing-qpdf branch.
 
 Every assertion in these suites was mutation-checked: a deliberate break in the matching production line
@@ -70,7 +70,7 @@ that line.
 
 ## Conventions
 
-- User-facing CLI strings and both markdown docs are **Thai**. Keep new user-facing output in Thai to match; code, comments, and identifiers stay in English.
+- User-facing CLI strings are **English**; both markdown docs (`README.md`, `HANDOFF.md`) are still **Thai**. Keep new CLI output in English to match.
 - `qpdf` is always invoked through `execFile`/`execFileSync` with an argv array, never a shell string, so passwords and paths with spaces are safe. Do not switch to `exec`.
 - Option defaults (`backup`, `backupDirName: 'backup'`) are declared in both `bin/` and `src/`; change both together.
 - `--dry-run` is handled entirely in `bin/` (it exits before the loop). `unlockFile` also accepts a `dryRun` option, but nothing currently passes it.
